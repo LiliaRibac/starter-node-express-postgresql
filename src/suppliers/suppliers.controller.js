@@ -1,6 +1,7 @@
 const suppliersService = require('./suppliers.service.js');
 const hasProperties = require('../errors/hasProperties');
 const asyncErrorBoundary = require('../errors/asyncErrorBoundary');
+const hasRequiredProperties = hasProperties('supplier_name', 'supplier_email');
 
 const VALID_PROPERTIES = [
   'supplier_name',
@@ -29,8 +30,6 @@ function hasOnlyValidProperties(req, res, next) {
     });
   next();
 }
-
-const hasRequiredProperties = hasProperties('supplier_name', 'supplier_email');
 
 async function supplierExists(req, res, next) {
   const supplier = await suppliersService.read(req.params.supplierId);

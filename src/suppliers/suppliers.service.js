@@ -10,7 +10,8 @@ function create(supplier) {
 function read(supplier_id) {
   return knex('suppliers').select('*').where({ supplier_id }).first();
 }
-
+// here update allrecords?
+//.then()
 function update(updatedSupplier) {
   return knex('suppliers')
     .select('*')

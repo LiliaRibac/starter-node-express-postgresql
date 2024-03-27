@@ -8,7 +8,6 @@ function read(req, res) {
 
 async function list(req, res, next) {
   const data = await productsService.list();
-  productsService;
   res.json({ data });
 }
 
@@ -21,7 +20,21 @@ async function productExists(req, res, next) {
   next({ status: 404, message: `Product cannot be found.` });
 }
 
+async function listOutOfStockCount(req, res, next) {
+  res.json({ data: await productsService.listOutOfStockCount() });
+}
+
+async function listPriceSummary(req, res, next) {
+  res.json({ data: await productsService.listPriceSummary() });
+}
+
+async function listTotalWeightByProduct(req, res) {
+  res.json({ data: await productsService.listTotalWeightByProduct() });
+}
 module.exports = {
-  read: [asyncErrorBoundary(productExists), asyncErrorBoundary(read)],
+  read: [asyncErrorBoundary(productExists), read],
   list: asyncErrorBoundary(list),
+  listOutOfStockCount: asyncErrorBoundary(listOutOfStockCount),
+  listPriceSummary: asyncErrorBoundary(listPriceSummary),
+  listTotalWeightByProduct: asyncErrorBoundary(listTotalWeightByProduct),
 };
